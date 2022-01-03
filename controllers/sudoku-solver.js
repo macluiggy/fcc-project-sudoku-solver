@@ -1,11 +1,70 @@
 class SudokuSolver {
   validate(puzzleString) {}
+  letterToNumber(row) {
+    switch (row.toUpperCase()) {
+      case "A":
+        return 1;
+      case "B":
+        return 2;
+      case "C":
+        return 3;
+      case "D":
+        return 4;
+      case "E":
+        return 5;
+      case "F":
+        return 6;
+      case "G":
+        return 7;
+      case "H":
+        return 8;
+      case "I":
+        return 9;
+      default:
+        return "none";
+    }
+  }
+  checkRowPlacement(puzzleString, row, column, value) {
+    let grid = this.transform(puzzleString);
+    row = this.letterToNumber(row);
+    if (grid[row - 1][column - 1] !== 0) {
+      return false;
+    }
+    for (let i = 0; i < 9; i++) {
+      if (grid[row - 1][i] == value) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-  checkRowPlacement(puzzleString, row, column, value) {}
+  checkColPlacement(puzzleString, row, column, value) {
+    let grid = this.transform(puzzleString);
+    row = this.letterToNumber(row);
+    if (grid[row - 1][column - 1] !== 0) {
+      return false;
+    }
+    for (let i = 0; i < 9; i++) {
+      if (grid[i][column - 1] == value) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-  checkColPlacement(puzzleString, row, column, value) {}
-
-  checkRegionPlacement(puzzleString, row, column, value) {}
+  checkRegionPlacement(puzzleString, row, col, value) {
+    let grid = this.transform(puzzleString);
+    row = this.letterToNumber(row);
+    if (grid[row - 1][col - 1] !== 0) {
+      return false;
+    }
+    let startRow = row - (row % 3),
+      startCol = col - (col % 3);
+    for (let i = 0; i < 3; i++)
+      for (let j = 0; j < 3; j++)
+        if (grid[startRow + i][startCol + j] == value) return false;
+    return true;
+  }
   solveSodoku(grid, row, col) {
     if (row == 9 - 1 && col == 9) return grid;
     if (col == 9) {
