@@ -6,6 +6,7 @@ module.exports = function (app) {
   let solver = new SudokuSolver();
 
   app.route("/api/check").post((req, res) => {
+    console.log("req.body :>> ", req.body);
     const { puzzle } = req.body;
     if (!puzzle) return res.json({ error: "Required field missing" });
     if (puzzle.length != 81)

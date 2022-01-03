@@ -9,15 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   fillpuzzle(textArea.value);
 });
 
-let textBox = document.querySelector("#text-input");
-let texBoxChanged = () => {
-  let textBoxValues = textBox.value.split("");
-  console.log(textBoxValues);
-};
 textArea.addEventListener("input", () => {
   fillpuzzle(textArea.value);
 });
-textBox.oninput = texBoxChanged;
 
 function fillpuzzle(data) {
   let len = data.length < 81 ? data.length : 81;
