@@ -8,7 +8,7 @@ module.exports = function (app) {
   app.route("/api/check").post((req, res) => {
     const { puzzle, coordinate, value } = req.body;
     if (!puzzle || !coordinate || !value)
-      return res.status(400).send("Invalid request");
+      return res.json({ error: "Required field(s) missing" });
     const row = coordinate.split("")[0];
     const column = coordinate.split("")[1];
     if (
@@ -17,11 +17,11 @@ module.exports = function (app) {
       !/[0-9]/i.test(column)
     ) {
       console.log("invalid coordinate :>> ", coordinate);
-      return res.json({ error: "invalid coordinate" });
+      return res.json({ error: "Invalid coordinate" });
     }
     if (!/[1-9]/i.test(value)) {
       console.log("invalid value :>> ", value);
-      return res.json({ error: "invalid value" });
+      return res.json({ error: "Invalid value" });
     }
     if (puzzle.length !== 81) {
       console.log("invalid puzzle :>> ", puzzle);
@@ -47,7 +47,7 @@ module.exports = function (app) {
       if (!validRow) {
         conflicts.push("row");
       }
-      return res.json({ valid: false, conflicts });
+      return res.json({ valid: false, conflict: conflicts });
     }
   });
 

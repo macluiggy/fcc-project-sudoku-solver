@@ -30,6 +30,7 @@ class SudokuSolver {
     if (grid[row - 1][column - 1] !== 0) {
       return false;
     }
+    if (grid[row - 1][column - 1] == value) return true;
     for (let i = 0; i < 9; i++) {
       if (grid[row - 1][i] == value) {
         return false;
@@ -44,6 +45,7 @@ class SudokuSolver {
     if (grid[row - 1][column - 1] !== 0) {
       return false;
     }
+    if (grid[row - 1][column - 1] == value) return true;
     for (let i = 0; i < 9; i++) {
       if (grid[i][column - 1] == value) {
         return false;
@@ -58,6 +60,7 @@ class SudokuSolver {
     if (grid[row - 1][col - 1] !== 0) {
       return false;
     }
+    if (grid[row - 1][col - 1] == value) return true;
     let startRow = row - (row % 3),
       startCol = col - (col % 3);
     for (let i = 0; i < 3; i++)
